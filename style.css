@@ -1,0 +1,18 @@
+.nav-color {
+    background-color: 		#1F2937 !important ;
+}
+.navbar-brand{
+    color : white !important;
+}
+.navbar-nav .nav-link{
+    color : white
+}
+.navbar-nav .nav-link.active{
+    color: white;
+}
+.card{
+    background-color: 	#BFDBFE !important;
+}
+i{
+    cursor: pointer;
+}
