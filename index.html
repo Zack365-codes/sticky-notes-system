@@ -21,54 +21,29 @@
   <body>
     <!-- ================= Bootstrap Navbar ========================== -->
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary nav-color">
+    <nav class="navbar">
       <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">My Notes</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact us</a>
-            </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
+        <div class="logo color">Zack365-Codes</div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#" class="active">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+          <i class="fas fa-bars"></i>
         </div>
       </div>
     </nav>
 
     <!--=============== Website header ====================-->
-    <div class="container d-flex justify-content-between align-items-center">
-      <h1 class="my-3">Sticky Notes</h1>
-      <span class="fs-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+    <div class="container text-center">
+      <h1 class="my-5">Make Sticky Notes Here</h1>
+      <span
+        class="fontsize"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
         ><i class="bi bi-plus-circle-fill"></i
       ></span>
     </div>
@@ -93,12 +68,17 @@
       aria-hidden="true"
     >
       <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <!-- Added dark theme classes for your black background website -->
+        <div
+          class="modal-content bg-dark text-light border-secondary shadow-lg"
+        >
+          <div class="modal-header border-secondary">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              ✨ Create New Sticky Note
+            </h1>
             <button
               type="button"
-              class="btn-close"
+              class="btn-close btn-close-white"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
@@ -107,34 +87,42 @@
             <form action="#">
               <div class="mb-3">
                 <label for="note-title" class="form-label">Title</label>
+                <!-- Fixed type="email" to type="text" -->
                 <input
-                  type="email"
-                  class="form-control"
+                  type="text"
+                  class="form-control bg-black text-light border-secondary"
                   id="note-title"
-                  placeholder="Sticky Note Title"
+                  placeholder="Enter note title..."
+                  autocomplete="off"
                 />
               </div>
               <div class="mb-3">
-                <label for="Textarea-note" class="form-label">Note Desc</label>
+                <label for="Textarea-note" class="form-label"
+                  >Note Description</label
+                >
                 <textarea
-                  class="form-control"
+                  class="form-control bg-black text-light border-secondary"
                   id="Textarea-note"
                   rows="3"
-                  placeholder="Note desc"
+                  placeholder="What's on your mind?"
                 ></textarea>
               </div>
             </form>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer border-secondary">
             <button
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-outline-light"
               data-bs-dismiss="modal"
             >
               Close
             </button>
-            <button type="button" id="btn-submit" class="btn btn-primary">
-              Add A Note
+            <button
+              type="button"
+              id="btn-submit"
+              class="btn btn-warning fw-semibold"
+            >
+              Add Note
             </button>
           </div>
         </div>
@@ -153,20 +141,47 @@
     ></script>
     <script>
       $("document").ready(function () {
+        let notestr = localStorage.getItem("notes");
+        let notes = [];
+
+        if (notes !== "") {
+          JSON.parse(notestr);
+        }
+
+        console.log(notes);
         $("#btn-submit").on("click", () => {
           let title = $("#note-title").val();
           let desc = $("#Textarea-note").val();
+          notes = {
+            title: title,
+            desc: desc,
+          };
+          console.log(notes)
+          let colors = ["yellow", "pink", "blue", "green", "purple"];
+          let color = colors[Math.floor(Math.random() * colors.length)];
 
-          let html = ` 
-           <div class="col-md-3 my-3 del-remove" id="rem">
-              <div class="card border-0 shadow-sm sticyNote">
-                  <div class="card-body">
-                    <h5 class="card-title">${title}</h5>
-                    <p class="card-text">${desc}</p>
-                    <a href="#" class="delete-note btn btn-danger btn-sm">delete</a>
-                  </div>
-                </div>
-            </div>`;
+          let html = `
+<div class="col-md-3 my-3 del-remove rem">
+    <div class="sticyNote ${color}">
+        
+        <div class="note-pin"></div>
+
+        <div class="note-content">
+            <h5 class="note-title">${title}</h5>
+
+            <p class="note-text">${desc}</p>
+
+            <div class="note-footer">
+                <span class="note-date">Just now</span>
+
+                <a href="#" class="delete-note">
+                    Delete
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>`;
 
           $("#note-title").val("");
           $("#Textarea-note").val("");
@@ -176,8 +191,12 @@
         });
       });
 
-      $(document).on("click", ".delete-note", (arg) => {
-        $(arg.target).closest("#rem").remove();
+      // $(document).on("click", ".delete-note", (arg) => {
+      //   $(arg.target).closest("#rem").remove();
+      // });
+      $(document).on("click", ".delete-note", function (e) {
+        e.preventDefault(); // Prevents the page from jumping up when clicking the <a> tag
+        $(this).closest(".rem").remove();
       });
     </script>
   </body>
