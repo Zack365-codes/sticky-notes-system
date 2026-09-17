@@ -144,59 +144,68 @@
         let notestr = localStorage.getItem("notes");
         let notes = [];
 
-        if (notes !== "") {
-          JSON.parse(notestr);
+        if (notestr !== null && notestr !== "") {
+          notes = JSON.parse(notestr);
+          shownote();
         }
 
-        console.log(notes);
-        $("#btn-submit").on("click", () => {
+
+        $("#btn-submit").on("click", (e) => {
+          e.preventDefault();
+
           let title = $("#note-title").val();
           let desc = $("#Textarea-note").val();
-          notes = {
-            title: title,
-            desc: desc,
-          };
-          console.log(notes)
+
           let colors = ["yellow", "pink", "blue", "green", "purple"];
           let color = colors[Math.floor(Math.random() * colors.length)];
 
-          let html = `
-<div class="col-md-3 my-3 del-remove rem">
-    <div class="sticyNote ${color}">
-        
-        <div class="note-pin"></div>
+          let noteob = {
+            title: title,
+            desc: desc,
+            color: color,
+          };
 
-        <div class="note-content">
-            <h5 class="note-title">${title}</h5>
+          notes.push(noteob);
+          localStorage.setItem("notes", JSON.stringify(notes));
 
-            <p class="note-text">${desc}</p>
-
-            <div class="note-footer">
-                <span class="note-date">Just now</span>
-
-                <a href="#" class="delete-note">
-                    Delete
-                </a>
-            </div>
-        </div>
-
-    </div>
-</div>`;
+          shownote();
 
           $("#note-title").val("");
           $("#Textarea-note").val("");
-          $("#notes").append(html);
-
           $("#exampleModal").modal("hide");
         });
-      });
 
-      // $(document).on("click", ".delete-note", (arg) => {
-      //   $(arg.target).closest("#rem").remove();
-      // });
-      $(document).on("click", ".delete-note", function (e) {
-        e.preventDefault(); // Prevents the page from jumping up when clicking the <a> tag
-        $(this).closest(".rem").remove();
+        function shownote() {
+          $("#notes").html("");
+          let allNotesHtml = "";
+
+          notes.forEach((element) => {
+
+            
+
+            allNotesHtml += `
+                <div class="col-md-3 my-3 del-remove rem">
+                    <div class="sticyNote ${element.color}">
+                        <div class="note-pin"></div>
+                        <div class="note-content">
+                            <h5 class="note-title">${element.title}</h5>
+                            <p class="note-text">${element.desc}</p>
+                            <div class="note-footer">
+                                <span class="note-date">Just now</span>
+                                <a href="#" class="delete-note">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+          });
+
+          $("#notes").html(allNotesHtml);
+        }
+
+        $(document).on("click", ".delete-note", function (e) {
+          e.preventDefault();
+          $(this).closest(".rem").remove();
+        });
       });
     </script>
   </body>
