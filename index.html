@@ -21,21 +21,31 @@
   <body>
     <!-- ================= Bootstrap Navbar ========================== -->
 
-    <nav class="navbar">
-      <div class="container">
-        <div class="logo color">Zack365-Codes</div>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#" class="active">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Portfolio</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <div class="hamburger" id="hamburger">
-          <i class="fas fa-bars"></i>
+    <div class="container my-4">
+      <div
+        class="row align-items-center justify-content-between bg-dark border border-secondary p-4 rounded-4 shadow-lg"
+      >
+        <!-- Left Side: Branding & Tagline -->
+        <div class="col-md-8">
+          <h2 class="text-light fw-bold mb-1">📌 Zack365 Sticky Board</h2>
+          <p class="text-secondary mb-0">
+            Capture your thoughts, ideas, and reminders all in one creative
+            space.
+          </p>
+        </div>
+
+        <!-- Right Side: Action Button -->
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+          <button
+            class="btn btn-light fw-semibold px-4 py-2 rounded-pill shadow-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            ✨ Create New Note
+          </button>
         </div>
       </div>
-    </nav>
+    </div>
 
     <!--=============== Website header ====================-->
     <div class="container text-center">
@@ -148,7 +158,7 @@
           notes = JSON.parse(notestr);
           shownote();
         } else {
-          shownote(); 
+          shownote();
         }
 
         $("#btn-submit").on("click", (e) => {
@@ -184,19 +194,21 @@
                     <p class="text-secondary mt-3">
                         Looks a bit empty here right now, doesn't it? Don't worry—your ideas are just a click away!
                     </p>
-                    <div class="my-4 text-start d-inline-block bg-dark border border-secondary p-4 rounded-3">
-                        <strong>How to use:</strong><br>
-                        1. Click the **plus icon (+)** above to open the note creator.<br>
-                        2. Type in a catchy title and what's on your mind.<br>
-                        3. Hit **Add Note** to pin your custom sticky note to the board!
-                    </div>
-                    <p class=" small mt-2">Created with code by Zunain Yamin.</p>
+       <div class="my-4 text-start d-inline-block bg-dark border border-secondary p-4 rounded-4 shadow-sm">
+    <h5 class="text-light fw-bold mb-3">💡 How to use:</h5>
+    <ol class="text-secondary ps-3 mb-0">
+        <li class="mb-2">Click the <strong>plus icon (+)</strong> or the <strong>✨ Create New Note</strong> button above to open the note creator.</li>
+        <li class="mb-2">Type in a catchy title and whatever is on your mind.</li>
+        <li>Hit <strong>Add Note</strong> to pin your custom sticky note right onto the board!</li>
+    </ol>
+</div>
+                    <p class=" small mt-2">Created with code by <span class="namedecor me-2 ms-2"> Zunain Yamin </span>.</p>
                 </div>
             `);
           } else {
             let allNotesHtml = "";
 
-            notes.forEach((element) => {
+            notes.forEach((element, index) => {
               allNotesHtml += `
                 <div class="col-md-3 my-3 del-remove rem">
                     <div class="sticyNote ${element.color}">
@@ -219,8 +231,24 @@
 
         $(document).on("click", ".delete-note", function (e) {
           e.preventDefault();
-          $(this).closest(".rem").remove();
-         
+          let index = $(this).data("index");
+          let cardnote = $(this).closest(".rem");
+          $(cardnote).animate(
+            {
+              width: "0px",
+              opacity: 0,
+              paddingLeft: "0px",
+              paddingRight: "0px",
+              marginRight: "0px",
+              marginLeft: "0px",
+            },
+            400,
+            function () {
+              notes.splice(index, 1);
+              localStorage.setItem("notes", JSON.stringify(notes));
+              shownote();
+            },
+          );
         });
       });
     </script>
