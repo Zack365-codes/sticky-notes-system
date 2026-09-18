@@ -147,8 +147,9 @@
         if (notestr !== null && notestr !== "") {
           notes = JSON.parse(notestr);
           shownote();
+        } else {
+          shownote(); 
         }
-
 
         $("#btn-submit").on("click", (e) => {
           e.preventDefault();
@@ -176,14 +177,27 @@
         });
 
         function shownote() {
-          $("#notes").html("");
-          let allNotesHtml = "";
+          if (notes.length === 0) {
+            $("#notes").html(`
+                <div class="col-12 text-center text-light my-5">
+                    <h3>✨ Welcome to Zack365-Codes Sticky Notes!</h3>
+                    <p class="text-secondary mt-3">
+                        Looks a bit empty here right now, doesn't it? Don't worry—your ideas are just a click away!
+                    </p>
+                    <div class="my-4 text-start d-inline-block bg-dark border border-secondary p-4 rounded-3">
+                        <strong>How to use:</strong><br>
+                        1. Click the **plus icon (+)** above to open the note creator.<br>
+                        2. Type in a catchy title and what's on your mind.<br>
+                        3. Hit **Add Note** to pin your custom sticky note to the board!
+                    </div>
+                    <p class=" small mt-2">Created with code by Zunain Yamin.</p>
+                </div>
+            `);
+          } else {
+            let allNotesHtml = "";
 
-          notes.forEach((element) => {
-
-            
-
-            allNotesHtml += `
+            notes.forEach((element) => {
+              allNotesHtml += `
                 <div class="col-md-3 my-3 del-remove rem">
                     <div class="sticyNote ${element.color}">
                         <div class="note-pin"></div>
@@ -197,14 +211,16 @@
                         </div>
                     </div>
                 </div>`;
-          });
+            });
 
-          $("#notes").html(allNotesHtml);
+            $("#notes").html(allNotesHtml);
+          }
         }
 
         $(document).on("click", ".delete-note", function (e) {
           e.preventDefault();
           $(this).closest(".rem").remove();
+         
         });
       });
     </script>
