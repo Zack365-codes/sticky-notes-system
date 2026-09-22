@@ -1,188 +1,151 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Zack365 Sticky Board</title>
-    <!-- Links -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <!-- Link of bootstrap icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <!-- ================= Custom Header Card ========================== -->
-    <div class="container my-4">
-      <div
-        class="row align-items-center justify-content-between bg-dark border border-secondary p-4 rounded-4 shadow-lg"
-      >
-        <!-- Left Side: Branding & Tagline -->
-        <div class="col-md-8">
-          <h2 class="text-light fw-bold mb-1">📌 Zack365 Sticky Board</h2>
-          <p class="text-secondary mb-0">
-            Capture your thoughts, ideas, and reminders all in one creative
-            space.
-          </p>
-        </div>
 
-        <!-- Right Side: Action Button -->
-        <div class="col-md-4 text-md-end mt-3 mt-md-0">
-          <button
-            class="btn btn-light fw-semibold px-4 py-2 rounded-pill shadow-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-          >
-            ✨ Create New Note
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zack365 Sticky Board</title>
+  <!-- Links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <!-- Link of bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <!-- ================= Custom Header Card ========================== -->
+  <div class="container my-4">
+    <div class="row align-items-center justify-content-between bg-dark border border-secondary p-4 rounded-4 shadow-lg">
+      <!-- Left Side: Branding & Tagline -->
+      <div class="col-md-8">
+        <h2 class="text-light fw-bold mb-1">📌 Zack365 Sticky Board</h2>
+        <p class="text-secondary mb-0">
+          Capture your thoughts, ideas, and reminders all in one creative
+          space.
+        </p>
+      </div>
+
+      <!-- Right Side: Action Button -->
+      <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <!-- 🗑️ Delete All Button Added Here -->
+        <button id="btn-delete-all" class="btn btn-outline-danger fw-semibold px-3 py-2 rounded-pill shadow-sm me-2">
+          🗑️ Delete All
+        </button>
+
+        <button class="btn btn-light fw-semibold px-4 py-2 rounded-pill shadow-sm" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">
+          ✨ Create New Note
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--=============== Website Main Action Header ====================-->
+  <div class="container text-center">
+    <h1 class="my-5">Make Sticky Notes Here</h1>
+    <span class="fontsize" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <i class="bi bi-plus-circle-fill"></i>
+    </span>
+  </div>
+
+  <!-- Notes Container Grid -->
+  <div class="container">
+    <div class="row" id="notes"></div>
+  </div>
+
+  <!-- ================== Modal ================== -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-light border-secondary shadow-lg">
+        <div class="modal-header border-secondary">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            ✨ Create New Sticky Note
+          </h1>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="#">
+            <div class="mb-3">
+              <label for="note-title" class="form-label">Title</label>
+              <input type="text" class="form-control bg-black text-light border-secondary" id="note-title"
+                placeholder="Enter note title..." autocomplete="off" />
+            </div>
+            <div class="mb-3">
+              <label for="Textarea-note" class="form-label">Note Description</label>
+              <textarea class="form-control bg-black text-light border-secondary" id="Textarea-note" rows="3"
+                placeholder="What's on your mind?"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" id="btn-submit" class="btn btn-warning fw-semibold">
+            Add Note
           </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!--=============== Website Main Action Header ====================-->
-    <div class="container text-center">
-      <h1 class="my-5">Make Sticky Notes Here</h1>
-      <span
-        class="fontsize"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        <i class="bi bi-plus-circle-fill"></i>
-      </span>
-    </div>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+  <script>
+    $("document").ready(function () {
+      let notestr = localStorage.getItem("notes");
+      let notes = [];
 
-    <!-- Notes Container Grid -->
-    <div class="container">
-      <div class="row" id="notes"></div>
-    </div>
+      if (notestr !== null && notestr !== "") {
+        notes = JSON.parse(notestr);
+        shownote();
+      } else {
+        shownote();
+      }
 
-    <!-- ================== Modal ================== -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div
-          class="modal-content bg-dark text-light border-secondary shadow-lg"
-        >
-          <div class="modal-header border-secondary">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              ✨ Create New Sticky Note
-            </h1>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form action="#">
-              <div class="mb-3">
-                <label for="note-title" class="form-label">Title</label>
-                <input
-                  type="text"
-                  class="form-control bg-black text-light border-secondary"
-                  id="note-title"
-                  placeholder="Enter note title..."
-                  autocomplete="off"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="Textarea-note" class="form-label"
-                  >Note Description</label
-                >
-                <textarea
-                  class="form-control bg-black text-light border-secondary"
-                  id="Textarea-note"
-                  rows="3"
-                  placeholder="What's on your mind?"
-                ></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer border-secondary">
-            <button
-              type="button"
-              class="btn btn-outline-light"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              id="btn-submit"
-              class="btn btn-warning fw-semibold"
-            >
-              Add Note
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+      $("#btn-submit").on("click", (e) => {
+        e.preventDefault();
 
-    <!-- Scripts -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-    <!-- jQuery -->
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.js"
-      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      $("document").ready(function () {
-        let notestr = localStorage.getItem("notes");
-        let notes = [];
-
-        if (notestr !== null && notestr !== "") {
-          notes = JSON.parse(notestr);
-          shownote();
-        } else {
-          shownote();
+        let title = $("#note-title").val().trim();
+        let desc = $("#Textarea-note").val().trim();
+        if (title === "" && desc === "") {
+          alert("Please enter content on sticky notes");
+          return
         }
 
-        $("#btn-submit").on("click", (e) => {
-          e.preventDefault();
+        let colors = ["yellow", "pink", "blue", "green", "purple"];
+        let color = colors[Math.floor(Math.random() * colors.length)];
 
-          let title = $("#note-title").val();
-          let desc = $("#Textarea-note").val();
+        let noteob = {
+          title: title,
+          desc: desc,
+          color: color,
+        };
 
-          let colors = ["yellow", "pink", "blue", "green", "purple"];
-          let color = colors[Math.floor(Math.random() * colors.length)];
+        notes.push(noteob);
+        localStorage.setItem("notes", JSON.stringify(notes));
 
-          let noteob = {
-            title: title,
-            desc: desc,
-            color: color,
-          };
+        shownote();
 
-          notes.push(noteob);
-          localStorage.setItem("notes", JSON.stringify(notes));
+        $("#note-title").val("");
+        $("#Textarea-note").val("");
+        $("#exampleModal").modal("hide");
+      });
 
-          shownote();
-
-          $("#note-title").val("");
-          $("#Textarea-note").val("");
-          $("#exampleModal").modal("hide");
-        });
-
-        function shownote() {
-          if (notes.length === 0) {
-            $("#notes").html(`
+      $("#btn-delete-all").on("click",function(){
+        notes = [];
+        localStorage.setItem ("notes" , JSON.stringify(notes));
+        shownote();
+      })
+      function shownote() {
+        if (notes.length === 0) {
+          $("#notes").html(`
               <div class="col-12 text-center text-light my-5">
                   <h3>✨ Welcome to Zack365-Codes Sticky Notes!</h3>
                   <p class="text-secondary mt-3">
@@ -199,11 +162,11 @@
                   <p class="small mt-2">Created with code by <span class="namedecor me-2 ms-2"> Zunain Yamin </span>.</p>
               </div>
             `);
-          } else {
-            let allNotesHtml = "";
+        } else {
+          let allNotesHtml = "";
 
-            notes.forEach((element, index) => {
-              allNotesHtml += `
+          notes.forEach((element, index) => {
+            allNotesHtml += `
                 <div class="col-md-3 my-3 rem">
                     <div class="sticyNote ${element.color}">
                         <div class="note-pin"></div>
@@ -216,35 +179,37 @@
                             </div>
                         </div>
                     </div>
+
                 </div>`;
-            });
+          });
 
-            $("#notes").html(allNotesHtml);
-          }
+          $("#notes").html(allNotesHtml);
         }
+      }
 
-        $(document).on("click", ".delete-note", function (e) {
-          e.preventDefault();
-          let index = $(this).data("index");
-          let cardnote = $(this).closest(".rem");
-          $(cardnote).animate(
-            {
-              width: "0px",
-              opacity: 0,
-              paddingLeft: "0px",
-              paddingRight: "0px",
-              marginRight: "0px",
-              marginLeft: "0px",
-            },
-            400,
-            function () {
-              notes.splice(index, 1);
-              localStorage.setItem("notes", JSON.stringify(notes));
-              shownote();
-            },
-          );
-        });
+      $(document).on("click", ".delete-note", function (e) {
+        e.preventDefault();
+        let index = $(this).data("index");
+        let cardnote = $(this).closest(".rem");
+        $(cardnote).animate(
+          {
+            width: "0px",
+            opacity: 0,
+            paddingLeft: "0px",
+            paddingRight: "0px",
+            marginRight: "0px",
+            marginLeft: "0px",
+          },
+          400,
+          function () {
+            notes.splice(index, 1);
+            localStorage.setItem("notes", JSON.stringify(notes));
+            shownote();
+          },
+        );
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
+
 </html>
