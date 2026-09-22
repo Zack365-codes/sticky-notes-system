@@ -145,23 +145,23 @@
       })
       function shownote() {
         if (notes.length === 0) {
-          $("#notes").html(`
-              <div class="col-12 text-center text-light my-5">
-                  <h3>✨ Welcome to Zack365-Codes Sticky Notes!</h3>
-                  <p class="text-secondary mt-3">
-                      Looks a bit empty here right now, doesn't it? Don't worry—your ideas are just a click away!
-                  </p>
-                  <div class="my-4 text-start d-inline-block bg-dark border border-secondary p-4 rounded-4 shadow-sm">
-                      <h5 class="text-light fw-bold mb-3">💡 How to use:</h5>
-                      <ol class="text-secondary ps-3 mb-0">
-                          <li class="mb-2">Click the <strong>plus icon (+)</strong> or the <strong>✨ Create New Note</strong> button above to open the note creator.</li>
-                          <li class="mb-2">Type in a catchy title and whatever is on your mind.</li>
-                          <li>Hit <strong>Add Note</strong> to pin your custom sticky note right onto the board!</li>
-                      </ol>
-                  </div>
-                  <p class="small mt-2">Created with code by <span class="namedecor me-2 ms-2"> Zunain Yamin </span>.</p>
-              </div>
-            `);
+         $("#notes").html(`
+    <div class="col-12 text-center text-light my-5">
+        <h3>✨ Welcome to Zack365-Codes Sticky Notes!</h3>
+        <p class="text-secondary mt-3">
+            Looks a bit empty here right now, doesn't it? Don't worry—your ideas are just a click away!
+        </p>
+        <div class="my-4 text-start d-inline-block bg-dark border border-secondary p-4 rounded-4 shadow-sm">
+            <h5 class="text-light fw-bold mb-3">💡 How to use:</h5>
+            <ol class="text-secondary ps-3 mb-0">
+                <li class="mb-2">Click the <strong>plus icon (+)</strong> or the <strong>✨ Create New Note</strong> button above to open the note creator.</li>
+                <li class="mb-2">Type in a catchy title and description (both are required!).</li>
+                <li>Hit <strong>Add Note</strong> to pin it, and easily manage your board using individual delete or the <strong>🗑️ Delete All</strong> button!</li>
+            </ol>
+        </div>
+        <p class="small mt-2">Created with code by <span class="namedecor me-2 ms-2"> Zunain Yamin </span>.</p>
+    </div>
+`);
         } else {
           let allNotesHtml = "";
 
